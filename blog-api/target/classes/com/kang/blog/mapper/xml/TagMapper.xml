@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kang.blog.mapper.TagMapper">
+
+<!--    List<Tag> findTagsByArticleId(Long articleId)  -->
+    <select id="findTagsByArticleId" resultType="com.kang.blog.entity.Tag" parameterType="long">
+        SELECT
+            id,
+            avatar,
+            tag_name AS tagName
+        FROM
+            ms_tag
+        WHERE
+                id IN (
+                SELECT
+                    tag_id
+                FROM
+                    ms_article_tag
+                WHERE
+                    article_id = #{article_id})
+    </select>
+
+<!--    从 idList 中查出 List<Tag> -->
+    <select id="findTagsByTagId" resultType="com.kang.blog.entity.Tag" parameterType="list">
+        select id,tag_name as tagName from ms_tag
+            where id in
+                <foreach collection="tagIdList" item="tagId" separator="," open="(" close=")">
+                    #{tagId}
+                </foreach>
+    </select>
+
+
+
+
+</mapper>
