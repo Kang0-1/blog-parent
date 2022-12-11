@@ -2,6 +2,7 @@ package com.kang.blog.service;
 
 import com.kang.blog.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.kang.blog.vo.Result;
 
 /**
  * <p>
@@ -14,4 +15,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface SysUserService extends IService<SysUser> {
 
     SysUser findUserById(Long authorId);
+
+    SysUser findUser(String account, String password);
+
+    Result findUserByToken(String token);
 }

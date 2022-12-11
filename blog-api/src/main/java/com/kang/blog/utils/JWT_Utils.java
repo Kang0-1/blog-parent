@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JWTUtils {
+public class JWT_Utils {
 
     private static final String jwtToken = "123456Mszlu!@#$$";
 
