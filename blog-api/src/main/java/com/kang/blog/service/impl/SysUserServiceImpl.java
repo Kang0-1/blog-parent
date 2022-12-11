@@ -3,12 +3,15 @@ package com.kang.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.kang.blog.entity.SysUser;
 import com.kang.blog.mapper.SysUserMapper;
+import com.kang.blog.service.LoginService;
 import com.kang.blog.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kang.blog.vo.ErrorCode;
 import com.kang.blog.vo.Result;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -20,6 +23,10 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
+
+    @Resource
+    private LoginService loginService;
+
 
     @Override
     public SysUser findUserById(Long authorId) {

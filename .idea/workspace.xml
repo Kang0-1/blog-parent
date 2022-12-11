@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1d0866a-a7f4-4351-92e0-63140c69633d" name="Changes" comment="12.12 登录功能部分接口实现" />
+    <list default="true" id="f1d0866a-a7f4-4351-92e0-63140c69633d" name="Changes" comment="12.12 登录功能部分接口实现">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/SysUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/SysUserServiceImpl.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,7 +138,7 @@
       <workItem from="1669438089440" duration="105000" />
       <workItem from="1670293566550" duration="48000" />
       <workItem from="1670661839369" duration="6321000" />
-      <workItem from="1670749294378" duration="8721000" />
+      <workItem from="1670749294378" duration="9542000" />
     </task>
     <task id="LOCAL-00001" summary="12.12 登录功能部分接口实现">
       <created>1670776496283</created>
@@ -144,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670776496283</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="12.12 登录功能部分接口实现">
+      <created>1670776536012</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1670776536012</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
