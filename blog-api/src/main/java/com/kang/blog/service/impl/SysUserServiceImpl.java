@@ -52,7 +52,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public Result findUserByToken(String token) {
-        if(StringUtils.isBlank(token)){
+
+        SysUser user=loginService.checkToken(token);
+        if(null==user){
             return Result.fail(ErrorCode.TOKEN_ERROR.getCode(), ErrorCode.TOKEN_ERROR.getMsg());
         }
         return null;

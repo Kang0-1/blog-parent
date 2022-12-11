@@ -49,4 +49,12 @@ public class LoginServiceImpl implements LoginService {
         redisTemplate.opsForValue().set("TOKEN_"+token, JSON.toJSONString(sysUser),1, TimeUnit.DAYS);
         return Result.success(token);
     }
+
+    @Override
+    public SysUser checkToken(String token) {
+        if(StringUtils.isBlank(token)){
+            return null;
+        }
+        return null;
+    }
 }
