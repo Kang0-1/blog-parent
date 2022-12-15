@@ -5,7 +5,7 @@ import com.kang.blog.entity.doS.Archives;
 import com.kang.blog.service.ArticleService;
 import com.kang.blog.vo.ArticleVo;
 
-import com.kang.blog.vo.Result;
+import com.kang.blog.utils.Result;
 import com.kang.blog.vo.params.PageParams;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,6 +73,11 @@ public class ArticleController {
     public Result listArchives() throws Exception {
         List<Archives> articleVoList=articleService.listArchives();
         return Result.success(articleVoList);
+    }
+
+    @PostMapping("article/view/{id}")
+    public Result findArticleById(@PathVariable Long id){
+        return articleService.findArticleById(id);
     }
 
 }

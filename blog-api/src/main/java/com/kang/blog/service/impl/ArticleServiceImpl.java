@@ -1,7 +1,6 @@
 package com.kang.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kang.blog.entity.Article;
 import com.kang.blog.entity.doS.Archives;
@@ -11,13 +10,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kang.blog.service.SysUserService;
 import com.kang.blog.service.TagService;
 import com.kang.blog.vo.ArticleVo;
+import com.kang.blog.utils.Result;
 import com.kang.blog.vo.params.PageParams;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +40,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Resource
     private ArticleMapper articleMapper;
 
+    /**
+     * 首页文章查询(分页查询)
+     * @param pageParams
+     * @return
+     */
     @Override
     public List<ArticleVo> listArticle(PageParams pageParams) {
         Page<Article> page=new Page<>(pageParams.getPage(),pageParams.getPageSize());
@@ -63,6 +67,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return articleVoList;
     }
 
+    /**
+     * 最热文章接口
+     * @param limit
+     * @return
+     */
     @Override
     public List<ArticleVo> hotArticle(int limit) {
         List<Article> articles = articleMapper.selectList(new LambdaQueryWrapper<Article>().
@@ -80,6 +89,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return articleVoList;
     }
 
+    /**
+     * 最新文章接口
+     * @param limit
+     * @return
+     */
     @Override
     public List<ArticleVo> newArticle(int limit) {
         List<Article> articles = articleMapper.selectList(new LambdaQueryWrapper<Article>().
@@ -97,8 +111,23 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return articleVoList;
     }
 
+    /**
+     * 文章归档(按日期)
+     * @return
+     */
     @Override
     public List<Archives> listArchives() {
         return baseMapper.listArchives();
+    }
+
+    /**
+     * 查看文章详情
+     * @param id
+     * @return
+     */
+    @Override
+    public Result findArticleById(Long id) {
+
+        return null;
     }
 }

@@ -3,8 +3,7 @@ package com.kang.blog.controller;
 
 import com.kang.blog.service.ArticleTagService;
 import com.kang.blog.service.TagService;
-import com.kang.blog.vo.R;
-import com.kang.blog.vo.Result;
+import com.kang.blog.utils.Result;
 import com.kang.blog.vo.TagVo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

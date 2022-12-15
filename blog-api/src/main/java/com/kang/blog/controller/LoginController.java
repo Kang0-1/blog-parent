@@ -1,13 +1,9 @@
 package com.kang.blog.controller;
 
 import com.kang.blog.service.LoginService;
-import com.kang.blog.service.SysUserService;
-import com.kang.blog.vo.Result;
+import com.kang.blog.utils.Result;
 import com.kang.blog.vo.params.LoginParams;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -21,6 +17,14 @@ public class LoginController {
     @PostMapping
     public Result login(@RequestBody LoginParams loginParams){
         return loginService.login(loginParams);
+    }
+
+    @GetMapping("logout")
+    public Result currentUser(@RequestHeader("Authorization") String token) {
+//        public Result currentUser(HttpServletRequest request){
+//        String token = request.getHeader("Authorization");}
+
+        return loginService.logout(token);
     }
 
 }

@@ -10,6 +10,8 @@ import java.security.MessageDigest;
  */
 public class MD5_Utils {
 
+    public static final String saltValue="MSZL#";
+
     /**
      * @Title: md5Lower
      * @Description: 不加盐值32位小写

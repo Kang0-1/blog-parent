@@ -6,26 +6,28 @@ import com.kang.blog.service.LoginService;
 import com.kang.blog.service.SysUserService;
 import com.kang.blog.utils.JWT_Utils;
 import com.kang.blog.utils.MD5_Utils;
-import com.kang.blog.vo.ErrorCode;
-import com.kang.blog.vo.Result;
+import com.kang.blog.utils.ErrorCode;
+import com.kang.blog.utils.Result;
 import com.kang.blog.vo.params.LoginParams;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class LoginServiceImpl implements LoginService {
 
+
     @Resource
     private SysUserService sysUserService;
+
 
     @Resource
     private RedisTemplate<String,String> redisTemplate;
 
-    private final String saltValue="MSZL#";
 
     @Override
     public Result login(LoginParams loginParams) {
@@ -41,7 +43,7 @@ public class LoginServiceImpl implements LoginService {
         if(StringUtils.isBlank(account)||StringUtils.isBlank(password)){
             return Result.fail(ErrorCode.PARAMS_ERROR.getCode(), ErrorCode.PARAMS_ERROR.getMsg());
         }
-        SysUser sysUser= sysUserService.findUser(account, MD5_Utils.md5Lower(password,saltValue));
+        SysUser sysUser= sysUserService.findUser(account, MD5_Utils.md5Lower(password,MD5_Utils.saltValue));
         if(sysUser==null){
             return Result.fail(ErrorCode.ACCOUNT_PWD_NOT_EXIST.getCode(), ErrorCode.ACCOUNT_PWD_NOT_EXIST.getMsg());
         }
@@ -55,6 +57,20 @@ public class LoginServiceImpl implements LoginService {
         if(StringUtils.isBlank(token)){
             return null;
         }
-        return null;
+        Map<String, Object> map = JWT_Utils.checkToken(token);
+        if(null==map){
+            return null;
+        }
+        String userJson = redisTemplate.opsForValue().get("TOKEN_" + token);
+        if(StringUtils.isBlank(userJson)){
+            return null;
+        }
+        return JSON.parseObject(userJson,SysUser.class);
+    }
+
+    @Override
+    public Result logout(String token) {
+        redisTemplate.delete("TOKEN_"+token);
+        return Result.success(null);
     }
 }

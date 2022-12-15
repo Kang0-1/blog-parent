@@ -1,17 +1,11 @@
 package com.kang.blog.controller;
 
 
-import com.kang.blog.entity.SysUser;
 import com.kang.blog.service.SysUserService;
-import com.kang.blog.vo.Result;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import com.kang.blog.utils.Result;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -28,7 +22,7 @@ public class SysUserController {
     @Resource
     private SysUserService userService;
 
-    @PostMapping("currentUser")
+    @GetMapping("currentUser")
     public Result currentUser(@RequestHeader("Authorization") String token){
 //        public Result currentUser(HttpServletRequest request){
 //        String token = request.getHeader("Authorization");}

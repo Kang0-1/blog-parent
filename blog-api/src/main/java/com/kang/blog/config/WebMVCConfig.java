@@ -1,19 +1,41 @@
 package com.kang.blog.config;
 
+import com.kang.blog.handler.LoginInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.Resource;
+
 @Configuration
 public class WebMVCConfig implements WebMvcConfigurer {
 
-    //跨域配置
+    @Resource
+    private LoginInterceptor loginInterceptor;
+
+    //跨域配置1 实现WebMvcConfigurer接口
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedOrigins("http://localhost:8082");
     }
+//    //跨域配置2 CorsFilter(springMVC)
+//    @Bean
+//    public CorsFilter corsFilter(){
+//        CorsConfiguration  config=new CorsConfiguration();
+//        config.addAllowedMethod("*");
+//        config.addAllowedOrigin("*");
+//        config.addAllowedHeader("*");
+//        UrlBasedCorsConfigurationSource source=new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**",config);
+//        return new CorsFilter(source);
+//    }
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -21,10 +43,12 @@ public class WebMVCConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-    //拦截器
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        WebMvcConfigurer.super.addInterceptors(registry);
-//        registry.addInterceptor().addPathPatterns().
-//    }
+    //拦截器配置
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginInterceptor).
+                addPathPatterns("/test");
+    }
+
+
 }

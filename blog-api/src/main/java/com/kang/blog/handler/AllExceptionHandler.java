@@ -1,6 +1,6 @@
 package com.kang.blog.handler;
 
-import com.kang.blog.vo.Result;
+import com.kang.blog.utils.Result;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
