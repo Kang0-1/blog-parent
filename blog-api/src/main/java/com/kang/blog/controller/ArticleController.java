@@ -75,7 +75,7 @@ public class ArticleController {
         return Result.success(articleVoList);
     }
 
-    @PostMapping("article/view/{id}")
+    @PostMapping("view/{id}")
     public Result findArticleById(@PathVariable Long id){
         return articleService.findArticleById(id);
     }

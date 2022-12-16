@@ -9,26 +9,24 @@ import java.util.List;
 public class ArticleVo {
     private Long id;
 
-    private String title;
+    private Integer commentCounts;
+
+    private String createDate;
 
     private String summary;
 
-    private Integer commentCounts;
+    private String title;
 
     private Integer viewCounts;
 
     private Integer weight;
-    /**
-     * 创建时间
-     */
-    private String createDate;
 
     private String author;
 
     private ArticleBodyVo body;
 
-    private List<TagVo> tags;
+    private CategoryVo category;
 
-    private List<CategoryVo> category;
+    private List<TagVo> tags;
 
 }

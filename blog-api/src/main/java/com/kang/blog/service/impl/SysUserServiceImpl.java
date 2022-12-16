@@ -12,6 +12,7 @@ import com.kang.blog.utils.MD5_Utils;
 import com.kang.blog.utils.ErrorCode;
 import com.kang.blog.vo.LoginUserVo;
 import com.kang.blog.utils.Result;
+import com.kang.blog.vo.UserVo;
 import com.kang.blog.vo.params.LoginParams;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -51,8 +52,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUser findUser(String account, String password) {
 
-        return baseMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getAccount, account).eq(SysUser::getPassword, password).
-                select(SysUser::getId,SysUser::getAccount, SysUser::getNickname,SysUser::getAvatar));
+        return baseMapper.selectOne(new LambdaQueryWrapper<SysUser>()
+                .eq(SysUser::getAccount, account)
+                .eq(SysUser::getPassword, password)
+                .select(SysUser::getId, SysUser::getAccount, SysUser::getNickname, SysUser::getAvatar));
     }
 
 
@@ -92,13 +95,27 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser user=new SysUser();
         user.setNickname(loginParams.getNickname());
         user.setAccount(loginParams.getAccount());
-        user.setPassword(MD5_Utils.md5Lower(loginParams.getPassword(),MD5_Utils.saltValue));
+        user.setPassword(MD5_Utils.md5Lower(loginParams.getPassword(), MD5_Utils.saltValue));
         user.setCreateDate(System.currentTimeMillis());
         user.setLastLogin(System.currentTimeMillis());
         baseMapper.insert(user);
 
-        String token= JWT_Utils.createToken(user.getId());
-        redisTemplate.opsForValue().set("TOKEN_"+token, JSON.toJSONString(user),1, TimeUnit.DAYS);
+        String token = JWT_Utils.createToken(user.getId());
+        redisTemplate.opsForValue().set("TOKEN_" + token, JSON.toJSONString(user), 1, TimeUnit.DAYS);
         return Result.success(token);
+    }
+
+    @Override
+    public UserVo findUserVoById(Long authorId) {
+        SysUser user = baseMapper.selectById(authorId);
+        if (user == null) {
+            user = new SysUser();
+            user.setId(1L);
+            user.setAvatar("/static/img/default_avatar.png");
+            user.setNickname("Kang-blog");
+        }
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(user, userVo);
+        return userVo;
     }
 }

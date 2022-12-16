@@ -1,9 +1,11 @@
 package com.kang.blog.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.kang.blog.service.CommentService;
+import com.kang.blog.utils.Result;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -14,8 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2022-10-31
  */
 @RestController
-@RequestMapping("/blog/comment")
+@RequestMapping("/comments")
 public class CommentController {
+
+    @Resource
+    private CommentService commentService;
+
+    @GetMapping("article/{id}")
+    public Result comments(@PathVariable Long id) {
+        return commentService.commentByArticleId(id);
+    }
+
+    @GetMapping("article2/{id}")
+    public Result comments2(@PathVariable Long id) {
+        return commentService.commentByArticleIdByStream(id);
+    }
 
 }
 

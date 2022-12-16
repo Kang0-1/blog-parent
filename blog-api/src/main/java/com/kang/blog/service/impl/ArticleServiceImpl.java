@@ -5,10 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.kang.blog.entity.Article;
 import com.kang.blog.entity.doS.Archives;
 import com.kang.blog.mapper.ArticleMapper;
-import com.kang.blog.service.ArticleService;
+import com.kang.blog.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.kang.blog.service.SysUserService;
-import com.kang.blog.service.TagService;
 import com.kang.blog.vo.ArticleVo;
 import com.kang.blog.utils.Result;
 import com.kang.blog.vo.params.PageParams;
@@ -40,14 +38,24 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Resource
     private ArticleMapper articleMapper;
 
+    @Resource
+    private ArticleBodyService articleBodyService;
+
+    @Resource
+    private CategoryService categoryService;
+
+    @Resource
+    private ThreadService threadService;
+
     /**
      * 首页文章查询(分页查询)
+     *
      * @param pageParams
      * @return
      */
     @Override
     public List<ArticleVo> listArticle(PageParams pageParams) {
-        Page<Article> page=new Page<>(pageParams.getPage(),pageParams.getPageSize());
+        Page<Article> page = new Page<>(pageParams.getPage(), pageParams.getPageSize());
 
         LambdaQueryWrapper<Article> queryWrapper=new LambdaQueryWrapper<>();
         queryWrapper.orderByDesc(Article::getWeight,Article::getCreateDate);
@@ -127,7 +135,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public Result findArticleById(Long id) {
+        Article article = articleMapper.selectById(id);
+        ArticleVo articleVo = new ArticleVo();
+        BeanUtils.copyProperties(article, articleVo);
+        articleVo.setAuthor(sysUserService.findUserById(article.getAuthorId()).getNickname());
+        articleVo.setBody(articleBodyService.findArticleBodyById(article.getBodyId()));
+        articleVo.setCategory(categoryService.findCategoryById(article.getCategoryId()));
+        articleVo.setTags(tagService.findTagsByArticleId(articleVo.getId()));
 
-        return null;
+        threadService.updateViewCount(article);
+
+        return Result.success(articleVo);
     }
 }

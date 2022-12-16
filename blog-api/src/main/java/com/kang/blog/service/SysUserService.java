@@ -3,6 +3,7 @@ package com.kang.blog.service;
 import com.kang.blog.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kang.blog.utils.Result;
+import com.kang.blog.vo.UserVo;
 import com.kang.blog.vo.params.LoginParams;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,8 +42,17 @@ public interface SysUserService extends IService<SysUser> {
 
     /**
      * 注册，成功后返回token
+     *
      * @param loginParams
      * @return
      */
     Result register(LoginParams loginParams);
+
+    /**
+     * 通过id查询用户并封装成UserVo返回
+     *
+     * @param authorId
+     * @return
+     */
+    UserVo findUserVoById(Long authorId);
 }
