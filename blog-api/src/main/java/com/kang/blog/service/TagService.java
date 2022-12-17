@@ -2,6 +2,7 @@ package com.kang.blog.service;
 
 import com.kang.blog.entity.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.kang.blog.utils.Result;
 import com.kang.blog.vo.TagVo;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface TagService extends IService<Tag> {
 
 
     List<TagVo> getTags(List<Long> tagIdList);
+
+    Result findAll();
 }

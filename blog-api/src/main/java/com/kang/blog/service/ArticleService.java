@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.kang.blog.entity.doS.Archives;
 import com.kang.blog.vo.ArticleVo;
 import com.kang.blog.utils.Result;
+import com.kang.blog.vo.params.ArticleParams;
 import com.kang.blog.vo.params.PageParams;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,7 +21,6 @@ import java.util.List;
  */
 public interface ArticleService extends IService<Article> {
 
-    
 
     List<ArticleVo> listArticle(PageParams pageParams) throws InvocationTargetException, IllegalAccessException;
 
@@ -31,4 +31,6 @@ public interface ArticleService extends IService<Article> {
     List<Archives> listArchives();
 
     Result findArticleById(Long id);
+
+    Result publish(ArticleParams articleParams);
 }

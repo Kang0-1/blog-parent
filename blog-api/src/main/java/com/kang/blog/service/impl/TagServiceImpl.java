@@ -4,6 +4,7 @@ import com.kang.blog.entity.Tag;
 import com.kang.blog.mapper.TagMapper;
 import com.kang.blog.service.TagService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.kang.blog.utils.Result;
 import com.kang.blog.vo.TagVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,12 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
         //List<Tag> tagList =baseMapper.findTagsByTagId(tagIdList);
         List<Tag> tagList = baseMapper.selectBatchIds(tagIdList);
         return copyList(tagList);
+    }
+
+    @Override
+    public Result findAll() {
+        List<Tag> tagList = baseMapper.selectList(null);
+        return Result.success(copyList(tagList));
     }
 
 

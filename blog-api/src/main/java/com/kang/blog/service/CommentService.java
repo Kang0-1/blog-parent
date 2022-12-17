@@ -3,6 +3,7 @@ package com.kang.blog.service;
 import com.kang.blog.entity.Comment;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.kang.blog.utils.Result;
+import com.kang.blog.vo.params.CommentParams;
 
 /**
  * <p>
@@ -24,4 +25,6 @@ public interface CommentService extends IService<Comment> {
 
 
     Result commentByArticleIdByStream(Long id);
+
+    Result comment(CommentParams commentParams);
 }

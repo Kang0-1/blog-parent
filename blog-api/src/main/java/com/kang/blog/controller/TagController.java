@@ -32,13 +32,17 @@ public class TagController {
     @Resource
     private ArticleTagService articleTagService;
 
+    @GetMapping
+    public Result tags() {
+        return tagService.findAll();
+    }
 
 
     @GetMapping("hot")
-    public Result hot(){
-        int limit=6;
-        List<Long> tagIdList=articleTagService.hot(limit);
-        if(tagIdList.isEmpty()){
+    public Result hot() {
+        int limit = 6;
+        List<Long> tagIdList = articleTagService.hot(limit);
+        if (tagIdList.isEmpty()) {
             return Result.success(Collections.EMPTY_LIST);
         }
         List<TagVo> hotTagVoList=tagService.getTags(tagIdList);

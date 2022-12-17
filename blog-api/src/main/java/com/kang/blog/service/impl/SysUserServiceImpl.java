@@ -44,6 +44,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = baseMapper.selectById(authorId);
         if (sysUser == null) {
             sysUser = new SysUser();
+            sysUser.setId(0L);
             sysUser.setNickname("Kang-blog");
         }
         return sysUser;
@@ -109,10 +110,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public UserVo findUserVoById(Long authorId) {
         SysUser user = baseMapper.selectById(authorId);
         if (user == null) {
-            user = new SysUser();
-            user.setId(1L);
-            user.setAvatar("/static/img/default_avatar.png");
-            user.setNickname("Kang-blog");
+            return null;
         }
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user, userVo);

@@ -2,6 +2,7 @@ package com.kang.blog.service;
 
 import com.kang.blog.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.kang.blog.utils.Result;
 import com.kang.blog.vo.CategoryVo;
 
 import java.util.List;
@@ -17,4 +18,6 @@ import java.util.List;
 public interface CategoryService extends IService<Category> {
 
     CategoryVo findCategoryById(Integer categoryId);
+
+    Result findAll();
 }

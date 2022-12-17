@@ -6,6 +6,7 @@ import com.kang.blog.service.ArticleService;
 import com.kang.blog.vo.ArticleVo;
 
 import com.kang.blog.utils.Result;
+import com.kang.blog.vo.params.ArticleParams;
 import com.kang.blog.vo.params.PageParams;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,13 +72,24 @@ public class ArticleController {
      */
     @PostMapping("listArchives")
     public Result listArchives() throws Exception {
-        List<Archives> articleVoList=articleService.listArchives();
+        List<Archives> articleVoList = articleService.listArchives();
         return Result.success(articleVoList);
     }
 
+    /**
+     * 查看文章并通过线程池修改阅读量
+     *
+     * @param id
+     * @return
+     */
     @PostMapping("view/{id}")
-    public Result findArticleById(@PathVariable Long id){
+    public Result findArticleById(@PathVariable Long id) {
         return articleService.findArticleById(id);
+    }
+
+    @PostMapping("publish")
+    public Result publish(@RequestBody ArticleParams articleParams) {
+        return articleService.publish(articleParams);
     }
 
 }

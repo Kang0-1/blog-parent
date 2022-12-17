@@ -9,6 +9,7 @@ import com.kang.blog.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kang.blog.vo.ArticleVo;
 import com.kang.blog.utils.Result;
+import com.kang.blog.vo.params.ArticleParams;
 import com.kang.blog.vo.params.PageParams;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
@@ -146,5 +147,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         threadService.updateViewCount(article);
 
         return Result.success(articleVo);
+    }
+
+    @Override
+    public Result publish(ArticleParams articleParams) {
+
+        return null;
     }
 }
