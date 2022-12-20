@@ -1,6 +1,7 @@
 package com.kang.blog.controller;
 
 
+import com.kang.blog.common.aop.LogAnnotation;
 import com.kang.blog.entity.doS.Archives;
 import com.kang.blog.service.ArticleService;
 import com.kang.blog.vo.ArticleVo;
@@ -35,21 +36,29 @@ public class ArticleController {
      * @throws Exception
      */
     @PostMapping
+    // 加此注解 代表要对此接口记录日志
+    @LogAnnotation(module = "文章", operator = "获取文章列表")
     public Result listArticle(@RequestBody PageParams pageParams) throws Exception {
-        List<ArticleVo> list = articleService.listArticle(pageParams);
-        //return R.success().data("list",list);
-        return Result.success(list);
+        return articleService.listArticle(pageParams);  //return R.success().data("list",list);
+    }
+
+    @PostMapping("listArticleByXML")
+    // 加此注解 代表要对此接口记录日志
+    @LogAnnotation(module = "文章", operator = "获取文章列表")
+    public Result listArticleByXML(@RequestBody PageParams pageParams) {
+        return articleService.listArticleByXML(pageParams);
     }
 
     /**
      * 首页 最热文章
+     *
      * @return
      * @throws Exception
      */
     @PostMapping("hot")
     public Result hotArticle() throws Exception {
-        int limit=5;
-        List<ArticleVo> articleVoList=articleService.hotArticle(limit);
+        int limit = 5;
+        List<ArticleVo> articleVoList = articleService.hotArticle(limit);
         return Result.success(articleVoList);
     }
 
