@@ -1,5 +1,6 @@
 package com.kang.blog.service.impl;
 
+import com.kang.blog.entity.Category;
 import com.kang.blog.entity.Tag;
 import com.kang.blog.mapper.TagMapper;
 import com.kang.blog.service.TagService;
@@ -64,6 +65,18 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     public Result findAll() {
         List<Tag> tagList = baseMapper.selectList(null);
         return Result.success(copyList(tagList));
+    }
+
+    @Override
+    public Result findAllDetail() {
+        List<Tag> tagList = baseMapper.selectList(null);
+        return Result.success(tagList);
+    }
+
+    @Override
+    public Result findDetailById(Long tagId) {
+        Tag tag = baseMapper.selectById(tagId);
+        return Result.success(tag);
     }
 
 

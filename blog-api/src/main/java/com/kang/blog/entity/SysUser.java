@@ -3,7 +3,11 @@ package com.kang.blog.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -38,7 +42,8 @@ public class SysUser implements Serializable {
     private String avatar;
 
     @ApiModelProperty(value = "注册时间")
-    private Long createDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createDate;
 
     @ApiModelProperty(value = "是否删除")
     private Boolean deleted;
@@ -47,7 +52,8 @@ public class SysUser implements Serializable {
     private String email;
 
     @ApiModelProperty(value = "最后登录时间")
-    private Long lastLogin;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date lastLogin;
 
     @ApiModelProperty(value = "手机号")
     private String mobilePhoneNumber;

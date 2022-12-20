@@ -25,7 +25,7 @@ import java.util.List;
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
 
     @Override
-    public CategoryVo findCategoryById(Integer categoryId) {
+    public CategoryVo findCategoryById(Long categoryId) {
         Category category = baseMapper.selectById(categoryId);
         CategoryVo categoryVo = new CategoryVo();
         BeanUtils.copyProperties(category, categoryVo);
@@ -34,7 +34,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
 
     @Override
     public Result findAll() {
-        List<Category> categories = baseMapper.selectList(null);
+        List<Category> categories = baseMapper.selectList(new LambdaQueryWrapper<Category>().
+                select(Category::getId, Category::getCategoryName));
         List<CategoryVo> categoryVos = new ArrayList<>();
         for (Category category : categories) {
             CategoryVo categoryVo = new CategoryVo();
@@ -42,5 +43,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
             categoryVos.add(categoryVo);
         }
         return Result.success(categoryVos);
+    }
+
+    @Override
+    public Result findAllDetail() {
+        List<Category> categoryList = baseMapper.selectList(null);
+        return Result.success(categoryList);
+    }
+
+    @Override
+    public Result findDetailById(Long id) {
+        Category category = baseMapper.selectById(id);
+        return Result.success(category);
     }
 }

@@ -20,6 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -88,17 +89,17 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
 
         SysUser sysUser = baseMapper.selectOne(new LambdaQueryWrapper<SysUser>().eq(SysUser::getAccount, loginParams.getAccount()).
-                                                last("limit 1"));
-        if(sysUser!=null){
+                last("limit 1"));
+        if (sysUser != null) {
             return Result.fail(ErrorCode.ACCOUNT_EXIST.getCode(), ErrorCode.ACCOUNT_EXIST.getMsg());
         }
 
-        SysUser user=new SysUser();
+        SysUser user = new SysUser();
         user.setNickname(loginParams.getNickname());
         user.setAccount(loginParams.getAccount());
         user.setPassword(MD5_Utils.md5Lower(loginParams.getPassword(), MD5_Utils.saltValue));
-        user.setCreateDate(System.currentTimeMillis());
-        user.setLastLogin(System.currentTimeMillis());
+        user.setCreateDate(new Date());
+        user.setLastLogin(new Date());
         baseMapper.insert(user);
 
         String token = JWT_Utils.createToken(user.getId());

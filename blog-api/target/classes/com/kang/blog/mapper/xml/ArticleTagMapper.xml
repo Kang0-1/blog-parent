@@ -14,4 +14,12 @@
             count(*) DESC
             LIMIT #{limit}
     </select>
+    <select id="findArticleIDListByTagId" resultType="java.lang.Long" parameterType="Long">
+        SELECT
+            article_id
+        FROM
+            ms_article_tag
+        WHERE
+            tag_id = #{tagId}
+    </select>
 </mapper>

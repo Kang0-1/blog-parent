@@ -36,7 +36,7 @@ public class R {
     }
 
     //附加在success()和error()后面的
-    //如  return Result.success().success(true).code(200).msg("成功").data("key","value");
+    //如  return Result.success(true).code(200).msg("成功").data("key","value");
 
     public R success(Boolean isSuccess){
         this.setSuccess(isSuccess);

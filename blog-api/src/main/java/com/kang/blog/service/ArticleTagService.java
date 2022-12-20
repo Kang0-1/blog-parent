@@ -16,5 +16,4 @@ import java.util.List;
 public interface ArticleTagService extends IService<ArticleTag> {
 
     List<Long> hot(int limit);
-
 }

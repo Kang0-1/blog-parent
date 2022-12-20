@@ -16,4 +16,6 @@ import java.util.List;
 public interface ArticleTagMapper extends BaseMapper<ArticleTag> {
 
     List<Long> findHotsTagIdList(int limit);
+
+    List<Long> findArticleIDListByTagId(Long tagId);
 }

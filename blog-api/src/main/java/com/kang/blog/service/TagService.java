@@ -23,4 +23,8 @@ public interface TagService extends IService<Tag> {
     List<TagVo> getTags(List<Long> tagIdList);
 
     Result findAll();
+
+    Result findAllDetail();
+
+    Result findDetailById(Long tagId);
 }

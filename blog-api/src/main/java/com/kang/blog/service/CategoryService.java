@@ -17,7 +17,11 @@ import java.util.List;
  */
 public interface CategoryService extends IService<Category> {
 
-    CategoryVo findCategoryById(Integer categoryId);
+    CategoryVo findCategoryById(Long categoryId);
 
     Result findAll();
+
+    Result findAllDetail();
+
+    Result findDetailById(Long id);
 }
