@@ -4,45 +4,68 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1d0866a-a7f4-4351-92e0-63140c69633d" name="Changes" comment="12.17 文章详情、线程池、评论列表显示">
-      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/utils/entityListToVOList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/params/ArticleBodyParams.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/params/ArticleParams.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/params/CommentParams.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/48c9b7ab-bb6e-4dfb-b981-69107ee1c8ff.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/48c9b7ab-bb6e-4dfb-b981-69107ee1c8ff.xml" afterDir="false" />
+    <list default="true" id="f1d0866a-a7f4-4351-92e0-63140c69633d" name="Changes" comment="12.18 评论功能完善">
+      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/common/aop/LogAnnotation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/common/aop/LogAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/controller/UploadController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/UploadService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/UploadServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/utils/HttpContextUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/utils/IpUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/utils/QiniuUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/config/WebMVCConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/config/WebMVCConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/controller/ArticleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/controller/CategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/controller/CategoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/controller/CommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/controller/TagController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/entity/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/entity/Article.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/entity/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/entity/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/entity/SysLog.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/entity/SysLog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/entity/SysUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/entity/SysUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/mapper/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/mapper/ArticleMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/mapper/ArticleTagMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/mapper/ArticleTagMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/mapper/xml/ArticleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/mapper/xml/ArticleMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/mapper/xml/ArticleTagMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/mapper/xml/ArticleTagMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/ArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/ArticleTagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/ArticleTagService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/CommentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/TagService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/ArticleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/CategoryServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/CommentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/SysUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/SysUserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/TagServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/service/impl/TagServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/CategoryVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/CategoryVo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/CommentVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/CommentVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/utils/R.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/utils/R.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/ArticleVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/ArticleVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/params/ArticleParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/params/ArticleParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/params/CommentParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/params/CommentParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/params/PageParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/vo/params/PageParams.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/config/WebMVCConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/config/WebMVCConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/controller/ArticleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/controller/ArticleController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/controller/CategoryController.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/controller/CategoryController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/controller/CommentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/controller/CommentController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/controller/TagController.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/controller/TagController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/entity/Article.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/entity/Article.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/entity/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/entity/Comment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/entity/SysLog.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/entity/SysLog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/entity/SysUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/entity/SysUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/mapper/ArticleMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/mapper/ArticleMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/mapper/ArticleTagMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/mapper/ArticleTagMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/mapper/xml/ArticleMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/mapper/xml/ArticleMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/mapper/xml/ArticleTagMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/mapper/xml/ArticleTagMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/ArticleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/ArticleService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/CategoryService.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/CategoryService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/CommentService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/TagService.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/TagService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/impl/ArticleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/impl/ArticleServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/impl/CategoryServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/impl/CategoryServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/impl/CommentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/impl/CommentServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/impl/SysUserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/impl/SysUserServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/impl/TagServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/service/impl/TagServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/vo/ArticleVo.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/vo/ArticleVo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/vo/params/PageParams.class" beforeDir="false" afterPath="$PROJECT_DIR$/blog-api/target/classes/com/kang/blog/vo/params/PageParams.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,8 +75,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="AnnotationType" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -87,12 +111,12 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../guli_parent" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/blog-api/src/main/java/com/kang/blog/utils" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="ReactorSettings">
@@ -195,7 +219,10 @@
       <workItem from="1671010090708" duration="4710000" />
       <workItem from="1671090913269" duration="13186000" />
       <workItem from="1671175694377" duration="21619000" />
-      <workItem from="1671243110498" duration="25225000" />
+      <workItem from="1671243110498" duration="25351000" />
+      <workItem from="1671360622732" duration="10900000" />
+      <workItem from="1671450624734" duration="8546000" />
+      <workItem from="1671514655914" duration="14858000" />
     </task>
     <task id="LOCAL-00001" summary="12.12 登录功能部分接口实现">
       <created>1670776496283</created>
@@ -246,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671123732592</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="12.18 评论功能完善">
+      <created>1671292365016</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1671292365016</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -268,7 +302,8 @@
     <MESSAGE value="12.12 登录功能部分接口实现2" />
     <MESSAGE value="12.12 登录功能部分接口实现3" />
     <MESSAGE value="12.12 登录、注册实现及拦截器、threadlocal" />
-    <option name="LAST_COMMIT_MESSAGE" value="12.12 登录、注册实现及拦截器、threadlocal" />
+    <MESSAGE value="12.18 评论功能完善" />
+    <option name="LAST_COMMIT_MESSAGE" value="12.18 评论功能完善" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">

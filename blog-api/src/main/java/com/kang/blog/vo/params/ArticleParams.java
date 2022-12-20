@@ -11,9 +11,9 @@ public class ArticleParams {
 
     private Long id;
 
-    private ArticleBodyParams body;
+    private ArticleBodyParams body; //body->{content contentHtml}
 
-    private CategoryVo category;
+    private CategoryVo category; // category->{ id avatar categoryName}
 
     private String summary;
 
