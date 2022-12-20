@@ -21,8 +21,9 @@ import java.util.List;
  */
 public interface ArticleService extends IService<Article> {
 
+    Result listArticleByXML(PageParams pageParams);
 
-    List<ArticleVo> listArticle(PageParams pageParams) throws InvocationTargetException, IllegalAccessException;
+    Result listArticle(PageParams pageParams) throws InvocationTargetException, IllegalAccessException;
 
     List<ArticleVo> hotArticle(int limit);
 
