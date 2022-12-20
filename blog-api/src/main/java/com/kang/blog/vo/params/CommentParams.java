@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CommentParams {
 
-    private Integer articleId;
+    private Long articleId;
 
     private String content;
 

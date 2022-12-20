@@ -40,7 +40,7 @@ public class Comment implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createDate;
 
-    private Integer articleId;
+    private Long articleId;
 
     private Long authorId;
 
