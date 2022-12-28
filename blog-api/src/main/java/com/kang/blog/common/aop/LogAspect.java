@@ -14,11 +14,13 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
+// AOP 定义一个切面，切面定义了切点和通知的关系
 @Component
 @Aspect  //切面 定义了通知和切点的关系
 @Slf4j
 public class LogAspect {
 
+    //切点
     @Pointcut("@annotation(com.kang.blog.common.aop.LogAnnotation)")
     public void pointCut() {
     }

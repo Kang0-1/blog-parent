@@ -4,6 +4,7 @@ package com.kang.blog.controller;
 import com.kang.blog.service.CommentService;
 import com.kang.blog.utils.Result;
 import com.kang.blog.vo.params.CommentParams;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -34,6 +35,7 @@ public class CommentController {
     }
 
     @PostMapping("/create/change")
+    @Transactional
     public Result comment(@RequestBody CommentParams commentParams) {
         return commentService.comment(commentParams);
     }

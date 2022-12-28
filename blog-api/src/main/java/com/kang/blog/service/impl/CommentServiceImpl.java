@@ -1,8 +1,10 @@
 package com.kang.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.kang.blog.entity.Article;
 import com.kang.blog.entity.Comment;
 import com.kang.blog.entity.SysUser;
+import com.kang.blog.mapper.ArticleMapper;
 import com.kang.blog.mapper.CommentMapper;
 import com.kang.blog.service.CommentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -34,6 +36,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     @Resource
     private SysUserService userService;
+
+    @Resource
+    private ArticleMapper articleMapper;
 
     @Override
     public Result commentByArticleIdByStream(Long id) {
@@ -131,6 +136,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         comment.setParentId(parentId == null ? 0 : parentId);
         Long toUserId = commentParams.getToUserId();
         comment.setToUid(toUserId == null ? 0 : toUserId);
+
+        Article articleForUpdate = articleMapper.selectById(commentParams.getArticleId());
+        articleForUpdate.setCommentCounts(articleForUpdate.getCommentCounts() + 1);
+        articleMapper.updateById(articleForUpdate);
+
         baseMapper.insert(comment);
         return Result.success(null);
     }

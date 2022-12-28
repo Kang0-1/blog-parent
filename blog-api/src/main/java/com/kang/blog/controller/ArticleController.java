@@ -2,6 +2,7 @@ package com.kang.blog.controller;
 
 
 import com.kang.blog.common.aop.LogAnnotation;
+import com.kang.blog.common.cache.Cache;
 import com.kang.blog.entity.doS.Archives;
 import com.kang.blog.service.ArticleService;
 import com.kang.blog.vo.ArticleVo;
@@ -45,6 +46,7 @@ public class ArticleController {
     @PostMapping("listArticleByXML")
     // 加此注解 代表要对此接口记录日志
     @LogAnnotation(module = "文章", operator = "获取文章列表")
+    @Cache(expire = 5 * 60 * 1000, name = "list_article")
     public Result listArticleByXML(@RequestBody PageParams pageParams) {
         return articleService.listArticleByXML(pageParams);
     }
@@ -56,6 +58,7 @@ public class ArticleController {
      * @throws Exception
      */
     @PostMapping("hot")
+    @Cache(expire = 5 * 60 * 1000, name = "hot_article")
     public Result hotArticle() throws Exception {
         int limit = 5;
         List<ArticleVo> articleVoList = articleService.hotArticle(limit);
@@ -68,6 +71,7 @@ public class ArticleController {
      * @throws Exception
      */
     @PostMapping("new")
+    @Cache(expire = 5 * 60 * 1000, name = "new_article")
     public Result newArticle() throws Exception {
         int limit=5;
         List<ArticleVo> articleVoList=articleService.newArticle(limit);

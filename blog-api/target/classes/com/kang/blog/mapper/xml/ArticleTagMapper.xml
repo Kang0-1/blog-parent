@@ -4,22 +4,15 @@
 
     <!--    List<Long> findHotsTagIdList(int limit)   -->
     <select id="findHotsTagIdList" resultType="java.lang.Long" parameterType="int">
-        SELECT
-            tag_id
-        FROM
-            ms_article_tag
-        GROUP BY
-            tag_id
-        ORDER BY
-            count(*) DESC
+        SELECT tag_id
+        FROM ms_article_tag
+        GROUP BY tag_id
+        ORDER BY count(*) DESC
             LIMIT #{limit}
     </select>
     <select id="findArticleIDListByTagId" resultType="java.lang.Long" parameterType="Long">
-        SELECT
-            article_id
-        FROM
-            ms_article_tag
-        WHERE
-            tag_id = #{tagId}
+        SELECT article_id
+        FROM ms_article_tag
+        WHERE tag_id = #{tagId}
     </select>
 </mapper>

@@ -99,7 +99,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             List<Long> articleIDListByTagId = articleTagMapper.findArticleIDListByTagId(pageParams.getTagId());
             queryWrapper.in(Article::getId, articleIDListByTagId);
         }
-
+        if (pageParams.getYear() != null && pageParams.getMonth() != null) {
+            //这里无法从数据库中create_date获取年、月来与参数判断，所以使用SQL语句更好
+            queryWrapper.eq(Article::getCreateDate, pageParams.getYear());
+        }
         queryWrapper.orderByDesc(Article::getWeight, Article::getCreateDate);
         baseMapper.selectPage(page, queryWrapper);  // new QueryWrapper<Article>().orderByDesc("create_date")
 
