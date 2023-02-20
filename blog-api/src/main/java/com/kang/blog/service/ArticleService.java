@@ -34,4 +34,6 @@ public interface ArticleService extends IService<Article> {
     Result findArticleById(Long id);
 
     Result publish(ArticleParams articleParams);
+
+    Result getArticleById(Long id);
 }

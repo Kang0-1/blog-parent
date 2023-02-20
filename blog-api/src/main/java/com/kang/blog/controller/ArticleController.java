@@ -30,21 +30,31 @@ public class ArticleController {
     @Resource
     private ArticleService articleService;
 
+    @PostMapping("{id}")
+    public Result getArticleById(@PathVariable Long id) {
+        return articleService.getArticleById(id);
+    }
+
     /**
      * 首页 文章列表
+     *
      * @param pageParams
      * @return
      * @throws Exception
      */
     @PostMapping
-    // 加此注解 代表要对此接口记录日志
+    /**
+     * 加此注解 代表要对此接口记录日志
+     */
     @LogAnnotation(module = "文章", operator = "获取文章列表")
     public Result listArticle(@RequestBody PageParams pageParams) throws Exception {
         return articleService.listArticle(pageParams);  //return R.success().data("list",list);
     }
 
     @PostMapping("listArticleByXML")
-    // 加此注解 代表要对此接口记录日志
+    /**
+     * 加此注解 代表要对此接口记录日志
+     */
     @LogAnnotation(module = "文章", operator = "获取文章列表")
     @Cache(expire = 5 * 60 * 1000, name = "list_article")
     public Result listArticleByXML(@RequestBody PageParams pageParams) {
@@ -96,6 +106,7 @@ public class ArticleController {
      * @return
      */
     @PostMapping("view/{id}")
+    @Cache(expire = 5 * 60 * 1000, name = "view_article")
     public Result findArticleById(@PathVariable Long id) {
         return articleService.findArticleById(id);
     }

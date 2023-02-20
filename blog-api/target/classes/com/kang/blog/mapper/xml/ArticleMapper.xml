@@ -17,8 +17,8 @@
 
     <select id="listArchives" resultType="com.kang.blog.entity.doS.Archives">
         SELECT
-            year (create_date) AS year,
-            month (create_date) AS month,
+            year(create_date) AS year,
+            month(create_date) AS month,
             count(*) as count
         FROM
             ms_article

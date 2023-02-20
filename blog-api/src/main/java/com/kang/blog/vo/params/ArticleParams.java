@@ -6,14 +6,23 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author 康
+ */
 @Data
 public class ArticleParams {
 
     private Long id;
 
-    private ArticleBodyParams body; //body->{content contentHtml}
+    /**
+     * body->{content contentHtml}
+     */
+    private ArticleBodyParams body;
 
-    private CategoryVo category; // category->{ id avatar categoryName}
+    /**
+     * category->{ id avatar categoryName}
+     */
+    private CategoryVo category;
 
     private String summary;
 

@@ -19,10 +19,14 @@ public class WebMVCConfig implements WebMvcConfigurer {
     @Resource
     private LoginInterceptor loginInterceptor;
 
-    //跨域配置1 实现WebMvcConfigurer接口
+    /**
+     * 跨域配置1 实现WebMvcConfigurer接口
+     *
+     * @param registry
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:8082");
+        registry.addMapping("/**").allowedOrigins("http://localhost:8082", "http://182.151.31.65:8082");
     }
 //    //跨域配置2 CorsFilter(springMVC)
 //    @Bean
@@ -43,7 +47,11 @@ public class WebMVCConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-    //拦截器配置
+    /**
+     * 拦截器配置
+     *
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor).

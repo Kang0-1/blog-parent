@@ -18,7 +18,11 @@ import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.time.Duration;
 
-// AOP 定义一个切面，切面定义了切点和通知的关系
+/**
+ * AOP 定义一个切面，切面定义了切点和通知的关系
+ *
+ * @author 康
+ */
 @Component
 @Aspect
 @Slf4j
@@ -60,7 +64,7 @@ public class CacheAspect {
                 //加密 以防出现key过长以及字符转义获取不到的情况
                 params = new StringBuilder(DigestUtils.md5Hex(params.toString()));
             }
-            Method method = pjp.getSignature().getDeclaringType().getMethod(methodName, parameterTypes);
+            Method method = signature.getDeclaringType().getMethod(methodName, parameterTypes);
             //获取Cache注解
             Cache annotation = method.getAnnotation(Cache.class);
             //缓存过期时间

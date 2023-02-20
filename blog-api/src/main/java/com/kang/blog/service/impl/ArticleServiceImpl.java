@@ -14,19 +14,20 @@ import com.kang.blog.mapper.ArticleTagMapper;
 import com.kang.blog.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kang.blog.utils.UserThreadLocal;
+import com.kang.blog.vo.ArticleMessage;
 import com.kang.blog.vo.ArticleVo;
 import com.kang.blog.utils.Result;
 import com.kang.blog.vo.TagVo;
 import com.kang.blog.vo.params.ArticleParams;
 import com.kang.blog.vo.params.PageParams;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -63,6 +64,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     @Resource
     private ThreadService threadService;
+
+    @Resource
+    private RedisTemplate redisTemplate;
+
+    @Resource
+    private RocketMQTemplate rocketMQTemplate;
 
 
     @Override
@@ -200,41 +207,110 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         SysUser sysUser = UserThreadLocal.get();
 
         Article article = new Article();
-        //插入 ms_article表的基本数据
-        article.setAuthorId(sysUser.getId());
-        article.setWeight(0);
-        article.setViewCounts(0);
-        article.setCreateDate(new Date());
-        article.setCommentCounts(0);
-        article.setSummary(articleParams.getSummary());
-        article.setTitle(articleParams.getTitle());
-        article.setCategoryId(articleParams.getCategory().getId());
-        articleMapper.insert(article);
-        //插入后会自动生成文章ID
-        Long articleId = article.getId();
+        boolean isEdit = false;
+        if (null != articleParams.getId()) {
+            isEdit = true;
+            article = new Article();
+            article.setId(articleParams.getId());
+            article.setTitle(articleParams.getTitle());
+            article.setSummary(articleParams.getSummary());
+            article.setCategoryId(articleParams.getCategory().getId());
+            articleMapper.updateById(article);
 
-        // 插入ms_article_tag表的数据
-        List<TagVo> tags = articleParams.getTags();
-        if (null != tags) {
-            for (TagVo tagVo : tags) {
-                ArticleTag articleTag = new ArticleTag();
-                articleTag.setArticleId(articleId);
-                articleTag.setTagId(tagVo.getId());
-                articleTagMapper.insert(articleTag);
+            articleTagMapper.delete(new LambdaQueryWrapper<ArticleTag>().eq(ArticleTag::getArticleId, articleParams.getId()));
+            List<TagVo> tags = articleParams.getTags();
+            if (null != tags) {
+                for (TagVo tagVo : tags) {
+                    ArticleTag articleTag = new ArticleTag();
+                    articleTag.setArticleId(articleParams.getId());
+                    articleTag.setTagId(tagVo.getId());
+                    articleTagMapper.insert(articleTag);
+                }
             }
+
+            ArticleBody articleBody = new ArticleBody();
+            articleBody.setArticleId(articleParams.getId());
+            articleBody.setContent(articleParams.getBody().getContent());
+            articleBody.setContentHtml(articleParams.getBody().getContentHtml());
+            articleBodyMapper.update(articleBody, new LambdaQueryWrapper<ArticleBody>().eq(ArticleBody::getArticleId, articleParams.getId()));
+
+            article.setBodyId(articleBody.getId());
+            articleMapper.updateById(article);
+
+        } else {
+            //插入 ms_article表的基本数据
+            article = new Article();
+            article.setAuthorId(sysUser.getId());
+            article.setWeight(0);
+            article.setViewCounts(0);
+            article.setCreateDate(new Date());
+            article.setCommentCounts(0);
+            article.setSummary(articleParams.getSummary());
+            article.setTitle(articleParams.getTitle());
+            article.setCategoryId(articleParams.getCategory().getId());
+            articleMapper.insert(article);
+
+            //插入后会自动生成文章ID
+            Long articleId = article.getId();
+
+            // 插入ms_article_tag表的数据
+            List<TagVo> tags = articleParams.getTags();
+            if (null != tags) {
+                for (TagVo tagVo : tags) {
+                    ArticleTag articleTag = new ArticleTag();
+                    articleTag.setArticleId(articleId);
+                    articleTag.setTagId(tagVo.getId());
+                    articleTagMapper.insert(articleTag);
+                }
+            }
+
+            //插入ms_article_body表的数据
+            ArticleBody articleBody = new ArticleBody();
+            articleBody.setArticleId(articleId);
+            articleBody.setContent(articleParams.getBody().getContent());
+            articleBody.setContentHtml(articleParams.getBody().getContentHtml());
+            articleBodyMapper.insert(articleBody);
+
+            article.setBodyId(articleBody.getId());
+            articleMapper.updateById(article);
+
         }
 
-        //插入ms_article_body表的数据
-        ArticleBody articleBody = new ArticleBody();
-        articleBody.setArticleId(articleId);
-        articleBody.setContent(articleParams.getBody().getContent());
-        articleBody.setContentHtml(articleParams.getBody().getContentHtml());
-        articleBodyMapper.insert(articleBody);
+        /**
+         * 方法一
+         * 直接删除所有跟 ArticleController 相关的缓存
+         */
+//        Set<String> keys = redisTemplate.keys("*" + "ArticleController::" + "*");
+//        if(CollectionUtils.isNotEmpty(keys)){
+//            redisTemplate.delete(keys);
+//        }
 
-        article.setBodyId(articleBody.getId());
-        articleMapper.updateById(article);
+        Long articleId = article.getId();
+        /**
+         *
+         */
+        if (isEdit) {
+            //发送一条消息到RocketMQ 当前文章更新了，去更新缓存
+            ArticleMessage articleMessage = new ArticleMessage();
+            articleMessage.setArticleId(articleId);
+            rocketMQTemplate.convertAndSend("blog-update-article", articleMessage);
+        }
+
         Map<String, String> map = new HashMap<>();
         map.put("id", articleId.toString());
         return Result.success(map);
+    }
+
+    @Override
+    public Result getArticleById(Long id) {
+        Article article = articleMapper.selectById(id);
+        ArticleVo articleVo = new ArticleVo();
+        BeanUtils.copyProperties(article, articleVo);
+        articleVo.setAuthor(sysUserService.findUserVoById(article.getAuthorId()));
+        articleVo.setBody(articleBodyService.findArticleBodyById(article.getBodyId()));
+        articleVo.setCategory(categoryService.findCategoryById(article.getCategoryId()));
+        articleVo.setTags(tagService.findTagsByArticleId(articleVo.getId()));
+
+        return Result.success(articleVo);
     }
 }

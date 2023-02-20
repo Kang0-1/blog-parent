@@ -2,7 +2,9 @@ package com.kang.blog.common.cache;
 
 import java.lang.annotation.*;
 
-//Type 表示注解可以放在类上  Method表示可以放在方法上
+/**
+ * @author 康
+ */ //Type 表示注解可以放在类上  Method表示可以放在方法上
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented

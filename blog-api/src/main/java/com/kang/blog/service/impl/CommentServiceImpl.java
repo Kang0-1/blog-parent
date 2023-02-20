@@ -1,6 +1,7 @@
 package com.kang.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.kang.blog.entity.Article;
 import com.kang.blog.entity.Comment;
 import com.kang.blog.entity.SysUser;
@@ -14,13 +15,11 @@ import com.kang.blog.utils.UserThreadLocal;
 import com.kang.blog.vo.CommentVo;
 import com.kang.blog.vo.params.CommentParams;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -39,6 +38,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     @Resource
     private ArticleMapper articleMapper;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     @Override
     public Result commentByArticleIdByStream(Long id) {
@@ -142,6 +144,12 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         articleMapper.updateById(articleForUpdate);
 
         baseMapper.insert(comment);
+
+        Set<String> keys = redisTemplate.keys("*" + "ArticleController::" + "*");
+        if (CollectionUtils.isNotEmpty(keys)) {
+            redisTemplate.delete(keys);
+        }
+
         return Result.success(null);
     }
 }
